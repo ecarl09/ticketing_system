@@ -52,7 +52,7 @@ Route::group(['middleware' => ['protectedPage']], function(){
         Route::post('/admin-update-password-submit', [user_account::class, 'update_password_submit'])->name('admin.update.password.submit');
         
         
-        Route::get('/test', [admin_tickets::class, 'notifyUsers']);
+        Route::get('/test', [news_and_events::class, 'newsAndEventNotification']);
         
         //tickets
         Route::get('/user-ticket-list', [admin_tickets::class, 'ticket_list'])->name('admin.ticket.list');

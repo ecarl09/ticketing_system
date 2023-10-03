@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\newsNotification;
+
 class news_and_events extends Controller{
 
     #load new and event create form
@@ -61,6 +64,8 @@ class news_and_events extends Controller{
             "created_at"   => \Carbon\Carbon::now(),
             "updated_at"   => \Carbon\Carbon::now(),
         ]);
+
+        $this->newsAndEventNotification($value->title);
         
         #redirect to create event form with session success
         session()->flash('success', 'true');
@@ -158,6 +163,23 @@ class news_and_events extends Controller{
         $events = DB::table('events')->where('referenceId', $id)->get();
 
         return view('admin/news/event_details', [ 'news' => $news, 'events' => $events]);
+    }
+
+    public function newsAndEventNotification($subject){
+        $notifData = [
+            'subject'          => $subject,
+            'greetings'        => 'Good Day!',
+            'body'             => 'We hope this message finds you well. We are excited to inform you about the latest news and events that have been posted on our platform. Stay connected and dont miss out on these exciting updates!',
+            'body1'            => ' ',
+            'notificationText' => 'View',
+            'url'              => url('/read-news'),
+            'thankyou'         => ' '
+        ];
+
+        //send to a multiple users or email
+        //queue has been implemented in this notification
+        //run php artisan queue:work
+        Notification::route('mail', ['jestreecarl@gmail.com'])->notify(new newsNotification($notifData));
     }
 
 }
