@@ -69,7 +69,7 @@ Route::group(['middleware' => ['protectedPage']], function(){
         Route::post('/save-recipients', [reports::class, 'saveRecipient'])->name('save.recipients');
         Route::get('/fetch-emails', [reports::class, 'fetchEmails'])->name('fetch.emails');
         Route::delete('/delete-email', [reports::class, 'deleteEmail']);
-
+        Route::get('/fetch-recipients/{value}', [reports::class, 'fetchRecipients'])->name('fetch.recipients');
 
         Route::get('/get-ticket-status/{id}', [admin_tickets::class, 'get_status'])->name('get.ticket.status');
         Route::post('/update-priority', [admin_tickets::class, 'update_priority'])->name('update.priority');

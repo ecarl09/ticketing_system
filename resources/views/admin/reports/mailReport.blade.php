@@ -52,6 +52,14 @@
                             <h6 class="mb-0">Ticket from {{ date('M j, Y', strtotime($from)) }} To: {{ date('M j, Y', strtotime($to)) }}</h6>
                         </div>
                         <div class="col-auto d-flex">
+                            <div class="col-auto text-center pe-card">
+                                <select class="form-select form-select-sm" id="recipientsList">
+                                    <option value="">Select Recipient</option>
+                                    @foreach ($recipientsList as $recipientsList)
+                                        <option>{{ $recipientsList->chapter }}</option>
+                                    @endforeach
+                                </select>
+                              </div>
                             <button type="button" id="recipientButton" class="btn btn-sm btn-primary me-2">Recipient Setup</button>
                         </div>
                     </div>
@@ -116,10 +124,32 @@
                 allowClear: true, // Adds a clear button
             });
 
+            $('#recipientsList').on('change', function() {
+                var selectedValue = $(this).val(); // Get the selected value
+
+                $.ajax({
+                    url: "/fetch-recipients/"+selectedValue,
+                    type: "GET",
+                    success: function (data) {
+                        $.each(data, function (index, item) {
+                            // var option = new Option(item.recepients, item.recepients, true, true);
+                            // $('#recipients').append(option).trigger('change');
+
+                            var selectedRecipients = []; // Create an array to store selected values
+                            $.each(data, function (index, item) {
+                                selectedRecipients.push(item.recepients); // Add values to the array
+                            });
+                            $('#recipients').val(selectedRecipients).trigger('change'); // Set all selected values
+                        });
+                    },error: function (error) {
+                        console.log(error);
+                    },
+                });
+            });
+
             tinymce.init({
                 selector: "#content"
             });
-
 
             $("#send").click(function() {
                 var editor = tinymce.get("content");
@@ -170,6 +200,7 @@
                                 <tr>\n\
                                     <td>'+ctr+'</td>\n\
                                     <td>'+value.recepients+'</td>\n\
+                                    <td>'+value.chapter+'</td>\n\
                                     <td class="text-end">\n\
                                         <div>\n\
                                             <button class="btn p-0 ms-2 removeEmail" type="button" id="'+value.id+'" title="Delete"><span class="text-500 fas fa-trash-alt"></span></button>\n\
@@ -185,7 +216,7 @@
             }
 
             $("#saveRecipient").click(function() {
-                if($('#email').val()){          
+                if($('#email').val() && $('#chapter').val()){          
                     $.ajax({
                         url: '/save-recipients',
                         method: 'POST',

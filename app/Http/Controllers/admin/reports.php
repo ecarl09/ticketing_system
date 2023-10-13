@@ -110,15 +110,16 @@ class reports extends Controller{
 
     public function mailReportAttachment($from, $to, $chapter){
         $record = $this->report($from, $to, $chapter);
-
+    
         $pdf = App::make('dompdf.wrapper');
         $pdf->setPaper('A4', 'landscape');
-
+    
         $html = View::make('admin/reports/admin_reports', $record)->render();
-
+    
         $pdf->loadHTML($html);
         return $pdf->stream();
     }
+    
 
     public function mailReport(Request $form){
         $value  = [
@@ -141,7 +142,8 @@ class reports extends Controller{
     }
 
     public function composeMailTicketReport($from, $to, $chapter){
-        return view('admin/reports/mailReport', ['from' => $from, 'to' => $to, 'chapter' => $chapter]);
+        $recipientsList = DB::table('recipients')->select('chapter')->groupBy('chapter')->get();
+        return view('admin/reports/mailReport', ['from' => $from, 'to' => $to, 'chapter' => $chapter, 'recipientsList' => $recipientsList]);
     }
 
     public function saveRecipient(Request $value){
@@ -149,6 +151,7 @@ class reports extends Controller{
 
         DB::table('recipients')->insert([
             'recepients' => $value->email,
+            'chapter'    => $value->chapter,
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now(),
         ]);
@@ -157,12 +160,17 @@ class reports extends Controller{
     }
 
     public function fetchEmails(){
-        $result = DB::table('recipients')->select('id','recepients')->get();
+        $result = DB::table('recipients')->select('id','recepients', 'chapter')->get();
         return response()->json($result);
     }
 
     public function deleteEmail(Request $value){
         DB::table('recipients')->where('id', $value->id)->delete();
         return response()->json(['status' => 200,'message' => 'success']);
+    }
+
+    public function fetchRecipients($value){
+        $recipientsList = DB::table('recipients')->select('recepients')->where('chapter', $value)->get();
+        return response()->json($recipientsList);
     }
 }

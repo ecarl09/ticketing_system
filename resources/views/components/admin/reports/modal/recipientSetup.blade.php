@@ -16,9 +16,40 @@
                     <form class="row" id="recipientsForm">
                         @csrf
 
-                        <div class="col-10">
+                        <div class="col-5">
                             <label class="sr-only" for="email">Email</label>
                             <input class="form-control" id="email" name="email" type="email"  placeholder="Recipient Email" />
+                        </div>
+                        <div class="col-5">
+                            <select class="form-select" id="chapter" name="chapter">
+                                <option value="" disabled="" selected="">Select a Chapter...</option>
+                                <option >BUPHARCO</option>
+                                <option>MAHESECO</option>
+                                <option>MCDC</option>
+                                <option>MMG Aklan</option>
+                                <option>MMG Aklan Specialty Clinic</option>
+                                <option>MMG Albay</option>
+                                <option>MMG Bislig</option>
+                                <option>MMG Bohol</option>
+                                <option>MMG Bulacan</option>
+                                <option>MMG Calapan</option>
+                                <option>MMG CamSur</option>
+                                <option>MMG Davao</option>
+                                <option>MMG Dipolog</option>
+                                <option>MMG Federation</option>
+                                <option>MMG GenSan</option>
+                                <option>MMG Masbate</option>
+                                <option>MMG Metro Rizal</option>
+                                <option>MMG Palawan</option>
+                                <option>MMG Pasig</option>
+                                <option>MMG Qatar</option>
+                                <option>MMG Quezon</option>
+                                <option>MMG Sorsogon</option>
+                                <option>MMG Tacurong</option>
+                                <option>MMG Tagum</option>
+                                <option>MMG Zambales</option>
+                                <option>PMPC</option>
+                            </select>
                         </div>
                         <div class="col-2">
                             <div class="d-grid gap-2">
@@ -35,6 +66,7 @@
                                 <tr>
                                     <th scope="col">#</th>
                                     <th scope="col">Email</th>
+                                    <th scope="col">Chapter</th>
                                     <th class="text-end" scope="col">Actions</th>
                                 </tr>
                             </thead>

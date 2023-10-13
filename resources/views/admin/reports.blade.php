@@ -139,7 +139,7 @@
                             @if (isset($chapter) && $chapter == 'ALL')
                                 All Chapters
                             @else
-                                {{ $results[0]->chapterName }}
+                                {{ $chapter }}
                             @endif
                         </span>
                         <span class="border position-absolute top-50 translate-middle-y w-100 start-0 z-index--1"></span>
