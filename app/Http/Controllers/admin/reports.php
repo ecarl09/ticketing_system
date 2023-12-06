@@ -99,10 +99,12 @@ class reports extends Controller{
         ->where('tickets.id', $id)
         ->first();
 
+        $comment = DB::table('ticket_comments')->where('ticket_id', $id)->orderBy('id', 'asc')->get();
+
         $pdf = App::make('dompdf.wrapper');
         $pdf->setPaper('A4', 'portrait');
 
-        $html = View::make('admin/reports/ticket_print', ['details' => $details])->render();
+        $html = View::make('admin/reports/ticket_print', ['details' => $details, 'comment' => $comment])->render();
 
         $pdf->loadHTML($html);
         return $pdf->stream();
