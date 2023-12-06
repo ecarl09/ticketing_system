@@ -111,7 +111,7 @@
     <h4>Narrative</h4>
     {!! $details->narrative  !!}
 
-    @if ($comment)
+    @if (count($comment) > 0)
         <br>
         <h2>Comments:</h2>
 
@@ -129,3 +129,4 @@
 </body>
 
 </html>
+

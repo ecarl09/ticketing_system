@@ -110,6 +110,22 @@
     
     <h4>Narrative</h4>
     {!! $details->narrative  !!}
+
+    @if (count($comment) > 0)
+    <br>
+    <h2>Comments:</h2>
+
+    @foreach ($comment as $comment)
+        @php
+            $formattedDate = \Carbon\Carbon::parse($comment->created_at)->format('M j, Y g:i A');
+        @endphp
+
+        <div style="margin-bottom: 15px">
+            <h5>{{ $comment->sender }} <small> {{ $formattedDate }} </small></h5>
+            {!! $comment->comments  !!}
+        </div>
+    @endforeach
+@endif
 </body>
 
 </html>
