@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\ticket;
 
 class ticket_status extends Model
 {
@@ -14,6 +15,5 @@ class ticket_status extends Model
         $date = date($value);
         return date('F d, Y | h:i:s A', strtotime($date));
     }
-
     
 }

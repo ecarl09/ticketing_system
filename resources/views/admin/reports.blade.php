@@ -271,17 +271,18 @@
                                     @foreach ($results as $results)
                                         <tr class="btn-reveal-trigger">
                                             <td class="align-middle white-space-nowrap py-2">{{ $ctr += 1 }}</td>
-                                            <td class="code align-middle white-space-nowrap py-2">{{ $results->ticket_code }}</td>
+                                            <td class="code align-middle white-space-nowrap py-2">{{$results->ticket_code}}</td>  
                                             <td class="date align-middle white-space-nowrap py-2">{{ date('M j, Y h:i A', strtotime($results->created_at)) }}</td>
-                                            <td class="User align-middle white-space-nowrap py-2">{{ $results->firstName . ' ' . $results->lastName }}</td>
-                                            <td class="Department align-middle white-space-nowrap py-2">{{ $results->department }}</td>
-                                            <td class="Type align-middle white-space-nowrap py-2">{{ $results->ticket_type }}</td>
+                                            <td class="User align-middle white-space-nowrap py-2">{{$results->firstName . ' ' . $results->lastName}}</td>
+                                            <td class="Department align-middle white-space-nowrap py-2">{{$results->department}}</td>
+                                            <td class="Type align-middle white-space-nowrap py-2">{{$results->ticket_type}}</td>
                                             <td class="status align-middle white-space-nowrap py-2 text-center fs-0 white-space-nowrap">
                                                 <span @class([
                                                     'badge',
                                                     'badge',
                                                     'rounded-pill',
                                                     'd-block',
+                                                    $results->status == 'NEW' ? 'badge-soft-primary' : null,
                                                     $results->status == 'RESOLVED' ? 'badge-soft-success' : null,
                                                     $results->status == 'CLOSED' ? 'badge-soft-success' : null,
                                                     $results->status == 'ON HOLD' ? 'badge-soft-warning' : null,
@@ -293,14 +294,14 @@
                                                 </span>
                                             </td>
                                             <td class="dateResolved align-middle white-space-nowrap py-2">
-                                                @if ($results->status == 'RESOLVED')
+                                                {{-- @if ($results->status == 'RESOLVED')
                                                     {{ date('M j, Y h:i A', strtotime($results->resolvedDate)) }}
-                                                @endif
+                                                @endif --}}
                                             </td>
                                             <td class="resolvedBy align-middle white-space-nowrap py-2">
-                                                @if ($results->status == 'RESOLVED')
+                                                {{-- @if ($results->status == 'RESOLVED')
                                                     {{ $results->resolvedBy }}
-                                                @endif
+                                                @endif --}}
                                             </td>
                                         </tr>
                                     @endforeach

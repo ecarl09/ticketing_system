@@ -35,6 +35,9 @@ Route::group(['middleware' => ['protectedPage']], function(){
 
     // Admin route
     Route::middleware(['auth', 'checkUserType:0'])->group(function () {
+        //delete this after use
+        Route::get('/initial-add-ticket-status', [reports::class, 'initialAddTicketStatusForPreRecord'])->name('initial-add-ticket-status');
+
         Route::get('/admin-dashboard', [admin_dashboard::class, 'dashboard'])->name('admin.dashboard');
         //user management
         Route::get('/add-user-form', [user_add::class, 'add_user_form'])->name('add.user.form');

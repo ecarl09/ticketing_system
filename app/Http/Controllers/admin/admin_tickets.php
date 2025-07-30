@@ -143,7 +143,12 @@ class admin_tickets extends Controller{
     public function update_status(Request $value){
         date_default_timezone_set('Asia/Manila');
         
-        $result = DB::table('tickets')->where('id', $value->id)->update(['status' => $value->status,"updated_at" => \Carbon\Carbon::now()]);
+        $result = DB::table('tickets')
+        ->where('id', $value->id)
+        ->update([
+            'status' => $value->status,
+            "updated_at" => \Carbon\Carbon::now()
+        ]);
 
         if ($result > 0) {
             DB::table('ticket_status')->insert([

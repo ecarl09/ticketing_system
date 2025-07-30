@@ -76,10 +76,25 @@
                         </select>
                     </div>
                     <div class="border border-y-0 border-200">
-                        <input class="form-control border-0 rounded-0 outline-none px-card" id="subject" name="subject" type="text" aria-describedby="email-subject" placeholder="Subject" />
+                        <input 
+                            class="form-control border-0 rounded-0 outline-none px-card" 
+                            id="subject" 
+                            name="subject" 
+                            type="text" 
+                            aria-describedby="email-subject" 
+                            placeholder="Subject"
+                            value="Ticket Summary Report: {{ date('M j, Y', strtotime($from)) }} to {{ date('M j, Y', strtotime($to)) }}"
+                        />
                     </div>
                     <div class="min-vh-50">
-                        <textarea class="tinymce d-none" id="content" name="content"></textarea>
+                        <textarea class="tinymce d-none" id="content" name="content">
+                            <p>Good day!</p>
+                            <p>Please see the attached Ticket Summary Report covering the period from {{ date('M j, Y', strtotime($from)) }} to {{ date('M j, Y', strtotime($to)) }}. This report includes all logged tickets from our ticketing system within the specified timeframe.</p>
+                            <p>If you have any questions or need further clarification regarding the report, feel free to reach out.</p>
+                            <p></p>
+                            <p>Thank you, and best regards,</p>
+                            <p>Fedcis Team</p>
+                        </textarea>
                     </div>
                     <div class="bg-light px-card py-3">
                         <div class="d-inline-flex flex-column">

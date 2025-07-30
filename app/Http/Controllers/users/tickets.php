@@ -63,15 +63,29 @@ class tickets extends Controller{
             }
         }
 
+        $this->saveTicketStatus($id);
+
         if($saved){
-            $this->send_ticket_notification($value->ticketType, $id, $ticket_code);
-            $this->NotifyAdminUsers($ticket_code);
+            // $this->send_ticket_notification($value->ticketType, $id, $ticket_code);
+            // $this->NotifyAdminUsers($ticket_code);
 
             session()->flash('saved', 'true');
             return back();
         }else{
             return back();
         }
+    }
+
+    private function saveTicketStatus($id){
+        DB::table('ticket_status')->insert([
+            'user_id'      => Auth::user()['id'],
+            'reference_id' => $id,
+            'user_name'    => Auth::user()['firstName'].' '.Auth::user()['lastName'],
+            'status'       => 'NEW',
+            'feedback'     => '',
+            "created_at"   => \Carbon\Carbon::now(),
+            "updated_at"   => \Carbon\Carbon::now(),
+        ]);
     }
 
     private function NotifyAdminUsers($ticket_code){

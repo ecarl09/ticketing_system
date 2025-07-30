@@ -89,11 +89,20 @@
                 <b>Report Description:</b> {!! $results->narrative !!}
             </td>
             <td class="td" style="font-size: 11px; text-align:left; padding: 0px 7px; line-height: 1.3; width: 250px !important">
-                @if ($results->status == 'RESOLVED')
+                @foreach ($results->ticket_status as $ticketStatus)
+                    <b>Name:</b> {{ $ticketStatus->user_name }} <br>
+                    <b>Date:</b> {{ date('M j, Y h:i A', strtotime($ticketStatus->created_at)) }} <br>
+                    <b>Status:</b> {{ $ticketStatus->status }} <br>
+                    @if ($ticketStatus->status !== 'NEW' && $ticketStatus->status !== 'OPENED')
+                        <b>Solution:</b> {{ $ticketStatus->feedback }}
+                    @endif
+                    <br>
+                @endforeach
+                {{-- @if ($results->status == 'RESOLVED' || $results->status == 'ACTION TAKEN' )
                 <b>Name:</b> {{ $results->resolvedBy }} <br>
                 <b>Date:</b> {{ date('M j, Y h:i A', strtotime($results->resolvedDate)) }} <br>
                 <b>Solution:</b> {{ $results->feedback }}
-                @endif          
+                @endif           --}}
             </td>
         </tr>
         @endforeach
