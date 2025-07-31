@@ -1,7 +1,7 @@
 @extends('layouts.UsersMainLayouts')
 
 @push('css')
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css">
+<link href="{{asset('assets/datatable/dataTables.dataTables.min.css')}}" rel="stylesheet" type="text/css"/>
 @endpush
 
 @section('current-page-title') Ticket List @endsection
@@ -97,8 +97,8 @@
 @endsection
 
 @push('javascript')
-<script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
+<script src="{{asset('assets/jquery/jquery.min.js')}}"></script>
+<script src="{{asset('assets/datatable/dataTables.min.js')}}"></script>
 
 <script>
     $(document).ready( function () {

@@ -186,7 +186,7 @@
 
 <div class="row g-3">
     <div class="col-lg-8">
-        <div class="card" id="customersTable" data-list='{"valueNames":["name","chapter","code","ticketType","status"],"page":10,"pagination":true}'>
+        <div class="card" id="customersTable" data-list='{"valueNames":["name","chapter","code","ticketType","status"],"page":5,"pagination":true}'>
             <div class="card-header">
                 <div class="row flex-between-center">
                     <div class="col-4 col-sm-auto d-flex align-items-center pe-0">
@@ -194,7 +194,7 @@
                     </div>
                 </div>
             </div>
-            <div class="card-body p-0" style="height: 30vh;">
+            <div class="card-body p-0" style="height: 30vh; overflow-y:hidden">
                 <div class="table-responsive">
                     <table class="table table-sm table-striped fs--1 mb-0 overflow-hidden">
                         <thead class="bg-200 text-900">

@@ -21,24 +21,32 @@ class admin_tickets extends Controller{
 
     public function ticket_list(){
         $tickets = DB::table('tickets')
-        ->leftJoin('users','tickets.user_id', "=" ,'users.id')
-        ->select('tickets.*', 'users.firstName', 'users.lastName', 'users.chapterName', 'users.number', 'users.profile_picture')
-        ->whereNotIn('status', ['RESOLVED', 'CLOSED'])
-        ->orderBy('tickets.created_at', 'desc')
-        ->get();
+            ->leftJoin('users','tickets.user_id', "=" ,'users.id')
+            ->select('tickets.*', 'users.firstName', 'users.lastName', 'users.chapterName', 'users.number', 'users.profile_picture')
+            ->whereNotIn('status', ['RESOLVED', 'CLOSED'])
+            ->orderBy('tickets.created_at', 'desc')
+            ->get();
 
-        return view('admin/ticket_list', ['list' => $tickets]);
+        $chapterName = DB::table('users')
+            ->distinct()
+            ->pluck('chapterName');
+
+        return view('admin/ticket_list', ['list' => $tickets, 'chapterName' => $chapterName]);
     }
 
     public function resolved_ticket(){
         $tickets = DB::table('tickets')
-        ->leftJoin('users','tickets.user_id', "=" ,'users.id')
-        ->select('tickets.*', 'users.firstName', 'users.lastName', 'users.chapterName', 'users.number', 'users.profile_picture')
-        ->whereIn('status', ['RESOLVED', 'CLOSED'])
-        ->orderBy('tickets.updated_at', 'desc')
-        ->get();
+            ->leftJoin('users','tickets.user_id', "=" ,'users.id')
+            ->select('tickets.*', 'users.firstName', 'users.lastName', 'users.chapterName', 'users.number', 'users.profile_picture')
+            ->whereIn('status', ['RESOLVED', 'CLOSED'])
+            ->orderBy('tickets.updated_at', 'desc')
+            ->get();
 
-        return view('admin/resolved_tickets', ['list' => $tickets]);
+        $chapterName = DB::table('users')
+            ->distinct()
+            ->pluck('chapterName');
+
+        return view('admin/resolved_tickets', ['list' => $tickets, 'chapterName' => $chapterName]);
     }
 
     public function view_ticket_details($id, $status){
